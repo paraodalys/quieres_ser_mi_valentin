@@ -97,51 +97,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-/* ---------- BOTÓN NO INTELIGENTE PARA MÓVIL ---------- */
+/* ---------- BOTÓN NO QUE SE MUEVE POR TODA LA PANTALLA ---------- */
 
 if (noBtn) {
-const frases = [
-  "¿Segura? 😳",
-  "Piénsalo mejor 👀",
-  "Ándale di que sí 🥺",
-  "Ándaleee, no seas así 😭",
-  "Di que sí por favor 💗",
-  "No me rompas el corazón 💔",
-  "Yo te quiero en verdad :( 💞",
-  "Una oportunidad más 🙈",
-  "Te prometo que será bonito 🥹",
-  "Ándaleeee 😩💗",
-  "Por faaa 🥺",
-  "No seas cruel 😭",
-  "Di que síii 😭💗",
-  "Te voy a tratar bonito 🫶",
-  "No me hagas sufrir 😩",
-  "Mira que sí quiero contigo 💘",
-  "Nomás di que sí 😔",
-  "Andaaa, por mí 🥹",
-  "No me digas que no 😢",
-  "Ándale, no seas malita 💞",
-  "Te prometo flores virtuales 🌸",
-  "Voy a insistir hasta que digas que sí 😤💗",
-  "Última oportunidad... ¿segura? 👀",
-  "Mira que estoy nervioso 😳",
-  "Di que sí y te hago reír siempre 😌"
-];
 
+  const frases = [
+    "¿Segura? 😳",
+    "Piénsalo mejor 👀",
+    "Ándale di que sí 🥺",
+    "No me rompas el corazón 💔",
+    "Te prometo que será bonito 🥹",
+    "Por faaa 🥺",
+    "No seas cruel 😭",
+    "Te voy a tratar bonito 🫶",
+    "Una oportunidad más 🙈",
+    "Di que síii 😭💗"
+  ];
 
   noBtn.style.position = "fixed";
+  noBtn.style.zIndex = "999";
   noBtn.style.transition = "left 0.3s ease, top 0.3s ease, transform 0.2s ease";
-
-  function shakeButton() {
-    noBtn.style.animation = "shake 0.4s";
-    setTimeout(() => {
-      noBtn.style.animation = "";
-    }, 400);
-  }
 
   function moveButton() {
 
-    const padding = 40;
+    const padding = 20;
 
     const maxX = window.innerWidth - noBtn.offsetWidth - padding;
     const maxY = window.innerHeight - noBtn.offsetHeight - padding;
@@ -156,28 +135,22 @@ const frases = [
     noBtn.innerText = randomPhrase;
 
     if (yesBtn) {
-      yesScale += 0.12;
+      yesScale += 0.15;
       yesBtn.style.transform = `scale(${yesScale})`;
     }
   }
 
-  function escape() {
-    shakeButton();
-    setTimeout(moveButton, 250);
-  }
-
-  // Para móvil (tap)
-  noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    escape();
-  });
-
-  noBtn.addEventListener("click", (e) => {
+  function escape(e) {
     e.preventDefault();
     e.stopPropagation();
-    escape();
+    moveButton();
+  }
+
+  noBtn.addEventListener("click", escape);
+  noBtn.addEventListener("touchstart", escape);
+
+}
+
   });
 
-}  
 
-});
