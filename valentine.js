@@ -97,35 +97,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- BOTÓN NO INTELIGENTE ---------- */
+/* ---------- BOTÓN NO INTELIGENTE PARA MÓVIL ---------- */
 
-  if (noBtn) {
+if (noBtn) {
+const frases = [
+  "¿Segura? 😳",
+  "Piénsalo mejor 👀",
+  "Ándale di que sí 🥺",
+  "Ándaleee, no seas así 😭",
+  "Di que sí por favor 💗",
+  "No me rompas el corazón 💔",
+  "Yo te quiero en verdad :( 💞",
+  "Una oportunidad más 🙈",
+  "Te prometo que será bonito 🥹",
+  "Ándaleeee 😩💗",
+  "Por faaa 🥺",
+  "No seas cruel 😭",
+  "Di que síii 😭💗",
+  "Te voy a tratar bonito 🫶",
+  "No me hagas sufrir 😩",
+  "Mira que sí quiero contigo 💘",
+  "Nomás di que sí 😔",
+  "Andaaa, por mí 🥹",
+  "No me digas que no 😢",
+  "Ándale, no seas malita 💞",
+  "Te prometo flores virtuales 🌸",
+  "Voy a insistir hasta que digas que sí 😤💗",
+  "Última oportunidad... ¿segura? 👀",
+  "Mira que estoy nervioso 😳",
+  "Di que sí y te hago reír siempre 😌"
+];
 
-    noBtn.style.position = "fixed";
-    noBtn.style.transition = "left 0.2s ease, top 0.2s ease";
 
-    function moveButton() {
+  noBtn.style.position = "fixed";
+  noBtn.style.transition = "left 0.3s ease, top 0.3s ease, transform 0.2s ease";
 
-      const padding = 30;
-
-      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
-
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
-
-      /* Hace crecer el botón SI */
-      if (yesBtn) {
-        yesScale += 0.15;
-        yesBtn.style.transform = `scale(${yesScale})`;
-      }
-    }
-
-    /* Huye antes de que lo toquen */
-    noBtn.addEventListener("mouseenter", moveButton);
+  function shakeButton() {
+    noBtn.style.animation = "shake 0.4s";
+    setTimeout(() => {
+      noBtn.style.animation = "";
+    }, 400);
   }
+
+  function moveButton() {
+
+    const padding = 40;
+
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+
+    const randomPhrase = frases[Math.floor(Math.random() * frases.length)];
+    noBtn.innerText = randomPhrase;
+
+    if (yesBtn) {
+      yesScale += 0.12;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+  }
+
+  function escape() {
+    shakeButton();
+    setTimeout(moveButton, 250);
+  }
+
+  // Para móvil (tap)
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    escape();
+  });
+
+  noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    escape();
+  });
+
+}  
 
 });
