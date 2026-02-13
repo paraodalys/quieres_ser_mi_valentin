@@ -1,0 +1,220 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff6f9, #ffe9f1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+/* FRAMES CON TRANSICIÓN SUAVE */
+.frame {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  position: absolute;
+  width: 100%;
+}
+
+.frame.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  position: relative;
+}
+
+/* SOBRE */
+.envelope {
+  width: 260px;
+  margin: 0 auto 20px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+  transform: scale(1.05);
+}
+
+.envelope-body {
+  background: #ffe3ec;
+  height: 160px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-top: 90px solid #f6b7cb;
+  transform-origin: top;
+  transition: transform 0.6s ease;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.hint {
+  color: #9a6a7a;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* CARTA */
+.letter-card {
+  background: linear-gradient(180deg, #fff 0%, #fff0f5 100%);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  backdrop-filter: blur(4px);
+}
+
+h1,
+.big-title,
+.big-question {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #b35a76;
+  text-align: center;
+}
+
+.big-title,
+.big-question {
+  font-size: 44px;
+}
+
+.letter-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: #4a2c38;
+  margin: 25px 0;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+/* BOTONES */
+.options {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+button {
+  background: #f4c6d5;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 22px;
+  cursor: pointer;
+  color: #5a2f3f;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* BOTÓN SÍ */
+.yes {
+  transition: transform 0.3s ease;
+}
+
+/* TEXTO */
+.subtitle {
+  color: #7a4b5e;
+  margin: 12px 0 20px;
+}
+
+textarea {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid #e8cbd5;
+  padding: 16px;
+  min-height: 130px;
+  resize: none;
+  font-family: 'Quicksand', sans-serif;
+  transition: 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #d890a8;
+  box-shadow: 0 0 0 3px rgba(216,144,168,0.2);
+}
+
+.signature {
+  display: block;
+  margin-top: 25px;
+  font-size: 12px;
+  color: #9b7b88;
+}
+
+/* CORAZONES */
+.hearts-bg span {
+  position: fixed;
+  bottom: -10px;
+  animation: floatUp linear infinite;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .big-title,
+  .big-question {
+    font-size: 32px;
+  }
+
+  .letter-card {
+    padding: 25px;
+  }
+}
+
+/* PDF */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff6f9;
+  }
+
+  .letter-card {
+    box-shadow: none;
+    margin-top: 40px;
+  }
+}
